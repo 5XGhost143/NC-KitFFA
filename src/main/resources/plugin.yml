@@ -1,0 +1,11 @@
+name: KitFFA
+version: '${project.version}'
+main: de.ghost143.kitffa.main
+api-version: '1.18'
+commands:
+  kit:
+    permission: de.ghost143.commands.kit.admin
+  info:
+    description: info...
+  setloc:
+    permission: de.ghost143.commands.setloc.admin
