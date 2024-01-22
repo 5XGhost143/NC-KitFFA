@@ -13,7 +13,7 @@ public class info implements CommandExecutor {
             Player player = (Player) sender;
             player.sendMessage("§8-*-*-*-*-*-*-*-*-*");
             player.sendMessage("§a§lKitFFA §7» §aBUILD VERSION§7: §bSNAPSHOT");
-            player.sendMessage("§a§lKitFFA §7» §aVersion§7: §b2024.1.19");
+            player.sendMessage("§a§lKitFFA §7» §aVersion§7: §b2024.2.2");
             player.sendMessage("§a§lKitFFA §7» §aCreated by §bGhost143");
             player.sendMessage("§8-*-*-*-*-*-*-*-*-*");
         } else {

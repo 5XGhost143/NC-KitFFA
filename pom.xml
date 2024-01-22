@@ -6,7 +6,7 @@
 
   <groupId>de.ghost143</groupId>
   <artifactId>KitFFA</artifactId>
-  <version>1.19-SNAPSHOT</version>
+  <version>2.2-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>KitFFA</name>

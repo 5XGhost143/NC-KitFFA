@@ -5,6 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,11 +13,10 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -50,7 +50,6 @@ public class main extends JavaPlugin implements Listener {
     public void onDisable() {
         getLogger().info("§a§lKitFFA §7» §cDas Plugin wurde Deaktiviert...");
     }
-
 
 
     private void loadConfig() {
@@ -87,6 +86,8 @@ public class main extends JavaPlugin implements Listener {
     ItemStack hose = new ItemStack(Material.DIAMOND_LEGGINGS);
     ItemStack stiefel = new ItemStack(Material.DIAMOND_BOOTS);
 
+    ItemStack schild = new ItemStack(Material.SHIELD);
+
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
@@ -105,12 +106,22 @@ public class main extends JavaPlugin implements Listener {
 
         inventory.setBoots(stiefel);
 
-        player.getInventory().addItem(createItem(Material.DIAMOND_AXE, "§aStandart Kit §7■ §a1x §bDiamant Axt"));
+        ItemStack diamondAxe = createItem(Material.DIAMOND_AXE, "§aStandart Kit §7■ §a1x §bDiamant Axt");
+        enchantItem(diamondAxe, Enchantment.DURABILITY, 10);
+        player.getInventory().addItem(diamondAxe);
 
-        player.getInventory().addItem(createItem(Material.DIAMOND_SWORD, "§aStandart Kit §7■ §a1x §bDiamant Schwert"));
+        ItemStack diamondSword = createItem(Material.DIAMOND_SWORD, "§aStandart Kit §7■ §a1x §bDiamant Schwert");
+        enchantItem(diamondSword, Enchantment.DURABILITY, 10);
+        player.getInventory().addItem(diamondSword);
 
         player.sendMessage("§a§a§lKitFFA §7» §aDu hast das Standart Kit erhalten...");
         player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_YES, 1.0f, 1.0f);
+    }
+
+    private void enchantItem(ItemStack item, Enchantment enchantment, int level) {
+        ItemMeta meta = item.getItemMeta();
+        meta.addEnchant(enchantment, level, true);
+        item.setItemMeta(meta);
     }
 
 
@@ -119,6 +130,11 @@ public class main extends JavaPlugin implements Listener {
         if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
             event.setCancelled(true);
         }
+    }
+
+    @EventHandler
+    public void onHunger(FoodLevelChangeEvent event) {
+        event.setCancelled(true);
     }
 
     @EventHandler
@@ -132,9 +148,11 @@ public class main extends JavaPlugin implements Listener {
         if (killer != null) {
             killer.sendMessage("§a§lKitFFA §7» §aDu hast §b" + victim.getName() + " §agetötet!");
             killer.playSound(killer.getLocation(), Sound.ENTITY_VILLAGER_YES, 1.0f, 1.0f);
+            killer.setHealth(killer.getMaxHealth());
         }
 
         getServer().broadcastMessage("§a§lKitFFA §7» §aDer Spieler §b" + victim.getName() + " §aWurde getötet...");
+
 
         event.getDrops().clear();
 
@@ -153,7 +171,6 @@ public class main extends JavaPlugin implements Listener {
     }
 
 
-
     @EventHandler
     public void onCreatureSpawn(CreatureSpawnEvent event) {
         if (event.getEntity() instanceof org.bukkit.entity.Mob) {
@@ -162,8 +179,23 @@ public class main extends JavaPlugin implements Listener {
     }
 
     @EventHandler
+    public void onPlayerAdvancementDone(PlayerAdvancementDoneEvent event) {
+        event.getPlayer().sendMessage(""); // Leere Nachricht senden, um die Standardnachricht zu ersetzen
+    }
+
+    @EventHandler
     public void onItemDrop(PlayerDropItemEvent event) {
         event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPlayerJoin2(PlayerJoinEvent event) {
+        event.setJoinMessage(null);
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        event.setQuitMessage(null);
     }
 
     @EventHandler

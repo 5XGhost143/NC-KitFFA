@@ -57,31 +57,31 @@ public class KitSelect implements CommandExecutor, Listener {
 
         // KITS
         gui.setItem(11, createItem(
-                Material.DIAMOND_SWORD,
+                Material.WOODEN_SWORD,
                 "§aStandart Kit",
                 Arrays.asList("§7■ §a1x §bDiamant Schwert", "§7■ §a1x §bDiamant Axt", "§7■ §a1x §bSchild", "§7■ §aGanze Diamant Rüstung")
         ));
 
         gui.setItem(12, createItem(
-                Material.GOLDEN_APPLE,
+                Material.STONE_AXE,
                 "§6Helper Kit",
                 Arrays.asList("§7■ §a1x §bDiamant Axt", "§7■ §a1x §bVerzauberter Goldener Apfel","§7■ §aGanze Diamant Rüstung")
         ));
 
         gui.setItem(13, createItem(
-                Material.NETHERITE_SWORD,
+                Material.CHAINMAIL_HELMET,
                 "§4Ritter Kit",
                 Arrays.asList("§7■ §a1x §bStein Schwert", "§7■ §a1x §bApfel","§7■ §aHalb Dia, Halb Netherite Rüstung")
         ));
 
         gui.setItem(14, createItem(
-                Material.NETHERITE_SHOVEL,
+                Material.ANVIL,
                 "§6Waffenschmiedt Kit",
                 Arrays.asList("§7■ §bNetherite Axt", "§7■ §bNetherite Schwert","§7■ §aGanze Diamant Rüstung")
         ));
 
         gui.setItem(15, createItem(
-                Material.APPLE  ,
+                Material.POTION,
                 "§cHealer Kit",
                 Arrays.asList("§7■ §a1x §bVerzauberter Goldener Apfel", "§7■ §a1x §bApfel","§7■ §a1x §bEisen Schwert","§7■ §aGanze Diamant Rüstung")
         ));
@@ -111,8 +111,8 @@ public class KitSelect implements CommandExecutor, Listener {
             if (clickedItem != null && clickedItem.getType() != Material.AIR) {
                 Player player = (Player) event.getWhoClicked();
 
-                if (clickedItem.getType() == Material.DIAMOND_SWORD) {
-                    if (player.hasPermission("")) {
+                if (clickedItem.getType() == Material.WOODEN_SWORD) {
+                    if (player.hasPermission("kitffa.kit.standartkit")) {
                         PlayerInventory inventory = player.getInventory();
 
                         player.getInventory().clear();
@@ -125,14 +125,12 @@ public class KitSelect implements CommandExecutor, Listener {
 
                         inventory.setBoots(stiefel);
 
-                        inventory.setItemInOffHand(schild);
-
                         ItemStack diamondAxe = createItem2(Material.DIAMOND_AXE, "§aStandart Kit §7■ §a1x §bDiamant Axt");
-                        enchantItem(diamondAxe, Enchantment.DURABILITY, 2);
+                        enchantItem(diamondAxe, Enchantment.DURABILITY, 10);
                         player.getInventory().addItem(diamondAxe);
 
                         ItemStack diamondSword = createItem2(Material.DIAMOND_SWORD, "§aStandart Kit §7■ §a1x §bDiamant Schwert");
-                        enchantItem(diamondSword, Enchantment.DURABILITY, 2);
+                        enchantItem(diamondSword, Enchantment.DURABILITY, 10);
                         player.getInventory().addItem(diamondSword);
 
                         player.sendMessage("§a§a§lKitFFA §7» §aDu hast dein Neues Kit erhalten....");
@@ -141,7 +139,7 @@ public class KitSelect implements CommandExecutor, Listener {
                         player.sendMessage("§a§lKitFFA §7» §cDu hast dieses Kit nicht...");
                         player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                     }
-                } else if (clickedItem.getType() == Material.GOLDEN_APPLE) {
+                } else if (clickedItem.getType() == Material.STONE_AXE) {
                         if (player.hasPermission("kitffa.kit.helperkit")) {
                             PlayerInventory inventory = player.getInventory();
 
@@ -156,11 +154,11 @@ public class KitSelect implements CommandExecutor, Listener {
                             inventory.setBoots(stiefel);
 
                             ItemStack GOLDENAPPLE = createItem2(Material.ENCHANTED_GOLDEN_APPLE, "§6Helper Kit §7■ §a1x §bVerzauberter Goldener Apfel");
-                            enchantItem(GOLDENAPPLE, Enchantment.DURABILITY, 2);
+                            enchantItem(GOLDENAPPLE, Enchantment.DURABILITY, 10);
                             player.getInventory().addItem(GOLDENAPPLE);
 
                             ItemStack DIAXE = createItem2(Material.DIAMOND_AXE, "§6Helper Kit §7■ §a1x §bDiamant Axt");
-                            enchantItem(DIAXE, Enchantment.DURABILITY, 1);
+                            enchantItem(DIAXE, Enchantment.DURABILITY, 10);
                             player.getInventory().addItem(DIAXE);
 
                             player.sendMessage("§a§a§lKitFFA §7» §aDu hast dein neues Kit erhalten.");
@@ -169,7 +167,7 @@ public class KitSelect implements CommandExecutor, Listener {
                             player.sendMessage("§a§lKitFFA §7» §cDu hast dieses Kit nicht.");
                             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                         }
-                } else if (clickedItem.getType() == Material.NETHERITE_SWORD) {
+                } else if (clickedItem.getType() == Material.CHAINMAIL_HELMET) {
                     if (player.hasPermission("kitffa.kit.ritterkit")) {
                         PlayerInventory inventory = player.getInventory();
                         player.getInventory().clear();
@@ -184,11 +182,11 @@ public class KitSelect implements CommandExecutor, Listener {
                         inventory.setBoots(stiefel);
 
                         ItemStack STONESWORD = createItem2(Material.STONE_SWORD, "§4Ritter Kit §7■ §a1x §bStein Schwert");
-                        enchantItem(STONESWORD, Enchantment.DURABILITY, 2);
+                        enchantItem(STONESWORD, Enchantment.DURABILITY, 10);
                         player.getInventory().addItem(STONESWORD);
 
                         ItemStack APPLE = createItem2(Material.APPLE, "§4Ritter Kit §7■ §a1x §bApfel");
-                        enchantItem(APPLE, Enchantment.DURABILITY, 2);
+                        enchantItem(APPLE, Enchantment.DURABILITY, 10);
                         player.getInventory().addItem(APPLE);
 
                         player.sendMessage("§a§a§lKitFFA §7» §aDu hast dein Neues Kit erhalten....");
@@ -197,7 +195,7 @@ public class KitSelect implements CommandExecutor, Listener {
                         player.sendMessage("§a§lKitFFA §7» §cDu hast dieses Kit nicht...");
                         player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                     }
-                } else if (clickedItem.getType() == Material.NETHERITE_SHOVEL) {
+                } else if (clickedItem.getType() == Material.ANVIL) {
                     if (player.hasPermission("kitffa.kit.waffenschmiedt")) {
                         PlayerInventory inventory = player.getInventory();
                         player.getInventory().clear();
@@ -212,11 +210,11 @@ public class KitSelect implements CommandExecutor, Listener {
 
 
                         ItemStack NETHERAXE = createItem2(Material.NETHERITE_AXE, "§6Waffenschmiedt Kit §7■ Netherite Axt");
-                        enchantItem(NETHERAXE, Enchantment.DURABILITY, 1);
+                        enchantItem(NETHERAXE, Enchantment.DURABILITY, 10);
                         player.getInventory().addItem(NETHERAXE);
 
                         ItemStack NETHERSWORD = createItem2(Material.NETHERITE_SWORD, "§6Waffenschmiedt Kit §7■ Netherite Schwert");
-                        enchantItem(NETHERSWORD, Enchantment.DURABILITY, 1);
+                        enchantItem(NETHERSWORD, Enchantment.DURABILITY, 10);
                         player.getInventory().addItem(NETHERSWORD);
 
                         player.sendMessage("§a§a§lKitFFA §7» §aDu hast dein Neues Kit erhalten....");
@@ -225,7 +223,7 @@ public class KitSelect implements CommandExecutor, Listener {
                         player.sendMessage("§a§lKitFFA §7» §cDu hast dieses Kit nicht.");
                         player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
                     }
-                } else if (clickedItem.getType() == Material.APPLE) {
+                } else if (clickedItem.getType() == Material.POTION) {
                     if (player.hasPermission("kitffa.kit.healer")) {
                         PlayerInventory inventory = player.getInventory();
                         player.getInventory().clear();
@@ -239,15 +237,15 @@ public class KitSelect implements CommandExecutor, Listener {
                         inventory.setBoots(stiefel);
 
                         ItemStack GOLDAPPLE = createItem2(Material.ENCHANTED_GOLDEN_APPLE, "§cHealer Kit §7■ §a1x §bVerzauberter Goldener Apfel");
-                        enchantItem(GOLDAPPLE, Enchantment.DURABILITY, 1);
+                        enchantItem(GOLDAPPLE, Enchantment.DURABILITY, 10);
                         player.getInventory().addItem(GOLDAPPLE);
 
                         ItemStack APPLE = createItem2(Material.APPLE, "§cHealer Kit §7■ §a1x §bApfel");
-                        enchantItem(APPLE, Enchantment.DURABILITY, 1);
+                        enchantItem(APPLE, Enchantment.DURABILITY, 10);
                         player.getInventory().addItem(APPLE);
 
                         ItemStack IRONSWORD = createItem2(Material.IRON_SWORD, "§cHealer Kit §7■ §a1x §bEisen Schwert");
-                        enchantItem(IRONSWORD, Enchantment.DURABILITY, 1);
+                        enchantItem(IRONSWORD, Enchantment.DURABILITY, 10);
                         player.getInventory().addItem(IRONSWORD);
 
 
